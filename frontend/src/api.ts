@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://misteral-backend-production.up.railway.app/";
 
 export const uploadFile = async (file: File): Promise<any> => {
   const formData = new FormData();
