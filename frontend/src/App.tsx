@@ -1,4 +1,3 @@
-import React from 'react';
 import { FileText } from "lucide-react";
 import UploadFile from "./components/UploadFile";
 import AskQuestion from "./components/AskQuestion";

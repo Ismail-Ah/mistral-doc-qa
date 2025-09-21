@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, type KeyboardEvent, type ChangeEvent } from "react";
+import { useState, useRef, useEffect, type KeyboardEvent, type ChangeEvent } from "react";
 import { MessageCircle, Send, Bot, User, Trash2 } from "lucide-react";
 import { askQuestion } from "../api";
 
