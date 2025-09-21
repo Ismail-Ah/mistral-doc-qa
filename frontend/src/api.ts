@@ -16,5 +16,5 @@ export const askQuestion = async (question: string): Promise<string> => {
   const response = await axios.post(`${BASE_URL}/ask`, null, {
     params: { question },
   });
-  return response.data;
+  return response.data.answer;
 };
