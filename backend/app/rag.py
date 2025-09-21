@@ -10,28 +10,29 @@ MISTRAL_API_URL = os.getenv("MISTRAL_API_URL")
 MISTRAL_EMBED_URL = os.getenv("MISTRAL_EMBED_URL")
 MODEL = os.getenv("MODEL")
 
-
-def embed_text(text: str):
+def embed_text(texts: list[str]):
     headers = {"Authorization": f"Bearer {MISTRAL_API_KEY}"}
-    payload = {"model": "mistral-embed", "input": [text]}
+    payload = {"model": "mistral-embed", "input": texts}
     resp = requests.post(MISTRAL_EMBED_URL, headers=headers, json=payload)
     resp.raise_for_status()
-    return np.array(resp.json()["data"][0]["embedding"], dtype=np.float32)
+    return np.array([d["embedding"] for d in resp.json()["data"]], dtype=np.float32)
 
-def add_chunks_to_index(text_chunks):
+
+def add_chunks_to_index(text_chunks: list[str]):
     global chunks, index
     chunks = text_chunks
 
-    # get embedding of the first chunk
-    first_embed = embed_text(chunks[0])
-    dim = first_embed.shape[0] # embeding dimension
+    # embed all chunks in one request
+    embeddings = embed_text(chunks)
+
+    # get dimension from embeddings
+    dim = embeddings.shape[1]
 
     # create FAISS index with correct dimension
     index = faiss.IndexFlatL2(dim)
 
-    # embed all chunks
-    embeddings = [embed_text(c) for c in chunks]
-    index.add(np.stack(embeddings))
+    # add all embeddings to index
+    index.add(embeddings)
 
 
 
