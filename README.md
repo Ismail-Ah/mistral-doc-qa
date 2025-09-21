@@ -56,7 +56,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### 2. Using Docker
 
-####ENV
+#### ENV
 Create `.env` inside `backend/app/` with your credentials:
 ```
 MISTRAL_API_KEY=your_api_key
