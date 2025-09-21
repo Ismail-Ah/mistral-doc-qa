@@ -8,3 +8,4 @@ pytest
 python-multipart
 pytest-asyncio 
 httpx
+reportlab
