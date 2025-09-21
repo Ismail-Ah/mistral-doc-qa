@@ -8,7 +8,7 @@ load_dotenv()
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 MISTRAL_API_URL = os.getenv("MISTRAL_API_URL")
 MISTRAL_EMBED_URL = os.getenv("MISTRAL_EMBED_URL")
-
+MODEL = os.getenv("MODEL")
 
 
 def embed_text(text: str):
@@ -55,7 +55,7 @@ def query_rag(question: str, top_k=3):
     }
 
     payload = {
-        "model": "mistral-small-latest",  # your working model
+        "model": MODEL, 
         "messages": [
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": f"Answer the question using this context:\n{context}\nQuestion: {question}"}
