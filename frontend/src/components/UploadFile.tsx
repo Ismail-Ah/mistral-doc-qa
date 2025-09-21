@@ -1,4 +1,4 @@
-import React, { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { Upload, FileText, CheckCircle, AlertCircle, File, X } from "lucide-react";
 import { uploadFile } from "../api";
 
