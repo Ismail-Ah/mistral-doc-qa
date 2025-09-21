@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from app.utils import extract_text_from_pdf, chunk_text
+from app.rag import add_chunks_to_index, query_rag
 
 app = FastAPI(title="Mistral Document Q&A")
 
@@ -14,8 +15,10 @@ async def upload_file(file: UploadFile = File(...)):
         f.write(content)
     text = extract_text_from_pdf(f"temp_{file.filename}")
     chunks = chunk_text(text)
+    add_chunks_to_index(chunks)
     return {"filename": file.filename, "chunks": len(chunks)}
 
 @app.post("/ask")
 async def ask_question(question: str):
-    return {"question": question, "answer": "This will be powered by Mistral soon!"}
+    answer = query_rag(question)
+    return {"question": question, "answer": answer}
